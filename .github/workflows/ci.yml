@@ -26,8 +26,13 @@ jobs:
     - name: 4. Set MLflow Tracking URI & Run MLflow Project
       env:
         MLFLOW_TRACKING_URI: https://dagshub.com/mranggamaulana22/Eksperimen_SML_Rangga-Maulana-Insani.mlflow
-        DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+        MLFLOW_TRACKING_USERNAME: mranggamaulana22
+        MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
       run: |
+        # Melakukan autentikasi resmi via CLI dagshub sebelum run
+        dagshub login --token ${{ secrets.DAGSHUB_TOKEN }}
+        
+        # Eksekusi retraining mlflow project
         mlflow run MLProject --env-manager local
 
     - name: 5. Install Python dependencies for Artifacts
